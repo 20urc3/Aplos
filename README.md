@@ -15,15 +15,13 @@ Aplos an extremely simple fuzzer for Windows binaries.
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-
 <br />
 <div align="center">
-    <h3 align="center">Aplos Fuzzer</h3>
+    <h1 align="center">Aplos Fuzzer</h1>
   <p align="center">
     An simple straight-to-the-point fuzzer for Windows binaries.
    </p>
 </div>
-
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -83,14 +81,8 @@ Once you feel comfortable we invite you to try any of those wonderful projects:
 * [WinAFL][wafl-url]
 * [Jackalope][jck-url]
 
-<!-- LICENSE -->
-## License
-Distributed under the Apache License. See `LICENSE.txt` for more information.
-
-<!-- CONTACT -->
-## Contact
-- Author: 2ourc3 - [@2ourc3](https://twitter.com/2ourc3)
-- Project Link: [https://github.com/20urc3/Aplos](https://github.com/20urc3/Aplos/)
+## Authors
+Author: [@2ourc3](https://twitter.com/2ourc3)
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
