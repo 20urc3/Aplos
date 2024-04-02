@@ -117,7 +117,7 @@ Projects:
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/20urc3/Aplos?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/all-contributors/20urc3/Aplos
 [contributors-url]: https://github.com/20urc3/Aplos/contributors
 [forks-shield]: https://img.shields.io/github/forks/20urc3/Aplos?style=for-the-badge
 [forks-url]: https://github.com/20urc3/Aplos/network/members
