@@ -117,19 +117,16 @@ Projects:
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/all-contributors/20urc3/Aplos
+[contributors-shield]: https://img.shields.io/github/contributors/20urc3/Aplos.svg?style=for-the-badge
 [contributors-url]: https://github.com/20urc3/Aplos/graph/contributors
-[forks-shield]: https://img.shields.io/github/forks/20urc3/Aplos?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/20urc3/Aplos.svg?style=for-the-badge
 [forks-url]: https://github.com/20urc3/Aplos/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/20urc3/Aplos.svg?style=for-the-badge
 [stars-url]: https://github.com/20urc3/Aplos/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/20urc3/Aplos.svg?style=for-the-badge
 [issues-url]: https://github.com/20urc3/Aplos/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/20urc3/Aplos.svg?style=for-the-badge
 [license-url]: https://github.com/20urc3/Aplos/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: [https://linkedin.com/in/salim-largo](https://www.linkedin.com/in/salim-largo/)
-[product-screenshot]: [images/screenshot.png](https://img.cdn4dd.com/cdn-cgi/image/fit=cover,width=600,height=400,format=auto,quality=80/https://doordash-static.s3.amazonaws.com/media/store/header/332a8919-5805-4981-a5bb-bfef0f464a5e.jpg)
 
 [wtf-url]: https://github.com/0vercl0k/wtf
 [wafl-url]: https://github.com/googleprojectzero/winafl
