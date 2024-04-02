@@ -20,12 +20,12 @@ Aplos an extremely simple fuzzer for Windows binaries.
     <h1 align="center">Aplos Fuzzer</h1>
   <p align="center">
     An simple straight-to-the-point fuzzer for Windows binaries.
-   </p>
+  </p>
+<img src=https://github.com/20urc3/Aplos/assets/94982366/3f6930f5-5be1-4e61-b917-0681be3d5f36 align="center" style="width: 35%; height: auto;">
 </div>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
 This tool is meant to be an educational tool allowing researcher and security enthusiast to start playing with fuzzing without having to use their brain.
 The tool provide an extremely basic interface that takes a target and initial testcases folder as argument and start running a fuzzing campaign. 
 
