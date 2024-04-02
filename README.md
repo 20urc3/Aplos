@@ -38,6 +38,12 @@ Of course, this project have absolutely no pretention to replace any state-of-th
 
 That being said, this project will still be improved and modify over time. People are more than welcome to contribute with one very important philosophy: it **must** stay simple to use. 
 
+<!-- Dependencies -->
+## Dependencies
+This project is only possible because of the (great) work other people have provided. 
+- The mutation engine used: [Radamsa](https://gitlab.com/akihe/radamsa)
+- The CLI argument parser used: [CLI11](https://github.com/CLIUtils/CLI11)
+
 <!-- GETTING STARTED -->
 ## Getting Started
 To get a local copy up and running follow these simple example steps.
@@ -46,7 +52,6 @@ To get a local copy up and running follow these simple example steps.
 1. Download the latest release
 2. Extract the folder 
 3. Profit!
-
 
 <!-- USAGE EXAMPLES -->
 ## Usage
