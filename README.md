@@ -69,9 +69,10 @@ That being said, this project will still be improved and modified over time. Peo
 
 <!-- ROADMAP -->
 ## Roadmap
-- [ ] Add instrumentation to record coverage
-- [ ] Allow persistent mode
-- [ ] Integrate AFL++ mutation engine
+- [ ] File management: When reaching > 3 gen, starting to delete unused input files.
+- [ ] Add instrumentation to record coverage.
+- [ ] Allow persistent mode.
+- [ ] Integrate AFL like mutation engine.
 See the [open issues](https://github.com/20urc3/Aplos/issues) for a full list of proposed features (and known issues).
 
 <!-- ACKNOWLEDGMENTS -->
