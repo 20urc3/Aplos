@@ -1,7 +1,6 @@
 <!-- PROJECT SHIELDS -->
 <div align="center">
     <h1 align="center">Aplos Fuzzer</h1>
-<img src="https://img.shields.io/github/all-contributors/20urc3/Aplos?color=ee8449&style=flat-square"></a>
 <img src="https://img.shields.io/circleci/project/github/badges/shields/master" alt="build status"></a>
 <img src="https://img.shields.io/badge/version-0.1-blue"></a>
     <p align="center">
