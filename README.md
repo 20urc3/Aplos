@@ -1,24 +1,10 @@
-# Aplos
-Aplos an extremely simple fuzzer for Windows binaries.
-
-<a name="readme-top"></a>
-
 <!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-<br />
 <div align="center">
     <h1 align="center">Aplos Fuzzer</h1>
-  <p align="center">
+<img src="https://img.shields.io/github/all-contributors/20urc3/Aplos"></a>
+<img src="https://img.shields.io/circleci/project/github/badges/shields/master" alt="build status"></a>
+<img src="https://img.shields.io/badge/version-0.1-blue"></a>
+    <p align="center">
     A simple straight-to-the-point fuzzer for Windows binaries.
   </p>
 <img src=https://github.com/20urc3/Aplos/assets/94982366/3f6930f5-5be1-4e61-b917-0681be3d5f36 align="center" style="width: 35%; height: auto;">
@@ -105,20 +91,6 @@ Short (non-exhaustive) list of amazing people and project that inspired me durin
 Author: [@2ourc3](https://twitter.com/2ourc3)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[contributors-shield]: https://img.shields.io/github/contributors/20urc3/Aplos.svg?style=for-the-badge
-[contributors-url]: https://github.com/20urc3/Aplos/graph/contributors
-[forks-shield]: https://img.shields.io/github/forks/20urc3/Aplos.svg?style=for-the-badge
-[forks-url]: https://github.com/20urc3/Aplos/network/members
-[stars-shield]: https://img.shields.io/github/stars/20urc3/Aplos.svg?style=for-the-badge
-[stars-url]: https://github.com/20urc3/Aplos/stargazers
-[issues-shield]: https://img.shields.io/github/issues/20urc3/Aplos.svg?style=for-the-badge
-[issues-url]: https://github.com/20urc3/Aplos/issues
-[license-shield]: https://img.shields.io/github/license/20urc3/Aplos.svg?style=for-the-badge
-[license-url]: https://github.com/20urc3/Aplos/blob/master/LICENSE.txt
 
 [wtf-url]: https://github.com/0vercl0k/wtf
 [wafl-url]: https://github.com/googleprojectzero/winafl
