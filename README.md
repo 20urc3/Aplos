@@ -12,7 +12,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 This tool is meant to be an educational tool allowing researchers and security enthusiasts to start playing with fuzzing without having to use their brain.
-The tool provides an extremely basic interface that takes a target and initial testcases folder as arguments and starts running a fuzzing campaign. 
+The tool provides an extremely basic interface that takes a target and an initial testcases folder as arguments and starts running a fuzzing campaign. 
 
 Why another fuzzer ?
 * Aplos fuzzer is meant to be a good reference for people without fuzzing knowledge that want to start playing with fuzzers.
