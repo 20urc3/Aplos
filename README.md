@@ -44,9 +44,19 @@ Of course, this project has absolutely no pretension to replace any state-of-the
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-Start a command prompt and use the following syntax: 
-`Aplos.exe -t {TARGET PROGRAM} -i {INPUT FOLDER} -e {EXTENSIONS} -D (OPTIONAL) {DELAY TIMEOUT}`
-
+<div align="center">
+<img src=https://github.com/20urc3/Aplos/assets/94982366/989e0a88-50bd-47e0-b39e-a2a2970daee9 align="center">
+</div>
+<br />
+  
+Start the fuzzer using the following syntax: 
+```sh
+Aplos.exe -t {TARGET PROGRAM} -i {INPUT FOLDER} -e {EXTENSIONS} -D (OPTIONAL) {DELAY TIMEOUT}`
+```
+* `-t, --target`: The path the target program you want to fuzz.
+* `-i, --input`: The input folder containing your testcases.
+* `-e, --extension`: The extensions your mutated file should use.
+* `-D, --delay`: The delay in ms for the target program to be executed then close (default = 1000).  
 
 ## Going further
 As explained in this documentation, this tool is meant to be educative and help researchers learn and enjoy playing with fuzzers. 
