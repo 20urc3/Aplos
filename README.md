@@ -11,13 +11,13 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-This tool is meant to be an educational tool allowing researcher and security enthusiast to start playing with fuzzing without having to use their brain.
-The tool provide an extremely basic interface that takes a target and initial testcases folder as argument and start running a fuzzing campaign. 
+This tool is meant to be an educational tool allowing researchers and security enthusiasts to start playing with fuzzing without having to use their brain.
+The tool provides an extremely basic interface that takes a target and initial testcases folder as arguments and starts running a fuzzing campaign. 
 
 Why another fuzzer ?
-* Aplos fuzzer is meant to be a good reference for people without fuzzing knowledge who want to start playing with fuzzers.
-* This documentation is meant to explain the core concept of fuzzing, allowing researchers to rapidly gain knowledge about the pros and cons of this technique.
-* It works, as simple as it sounds it matters. Sometimes having to tweak complex tools for hours is blocking newcomers from fuzzing to try it.
+* Aplos fuzzer is meant to be a good reference for people without fuzzing knowledge that want to start playing with fuzzers.
+* This documentation is meant to explain the core concepts of fuzzing, allowing researchers to rapidly gain knowledge about the pros and cons of this technique.
+* It works, as simple as it sounds, and it matters. Sometimes having to tweak complex tools for hours is blocking newcomers from trying out fuzzing.
 
 Of course, this project has absolutely no pretension to replace any state-of-the-art fuzzer. On the contrary, it should be a solid foundation for you to grasp the core concept of the fuzzing techniques and then start playing with other tools later. 
 
@@ -45,7 +45,7 @@ Aplos.exe -t {TARGET PROGRAM} -i {INPUT FOLDER} -e {EXTENSIONS} -D (OPTIONAL) {D
 
 ## Going further
 As explained in this documentation, this tool is meant to be educative and help researchers learn and enjoy playing with fuzzers. 
-Once you feel comfortable we invite you to try any of those wonderful projects:
+Once you feel comfortable, we invite you to try any of those wonderful projects:
 * [WTF Snapshot fuzzer][wtf-url]
 * [WinAFL][wafl-url]
 * [Jackalope][jck-url]
