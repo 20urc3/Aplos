@@ -255,45 +255,54 @@ int _tmain(int argc, char *argv[])
     string outputFolder, inputFolder;
     originalFolder = inputs;
 
-    // Main fuzzing logic loop
-    for (int generation = 1;; ++generation)
+// Main fuzzing logic loop
+for (int generation = 1;; ++generation)
+{
+    // Check for input folder logic
+    cout << "Mutating corpus to create testcases generation: " << generation << endl;
+    if (generation == 1)
     {
-        // Check for input folder logic
-        cout << "Mutating corpus to create testcases generation: " << generation << endl;
-        if (generation == 1)
+        inputFolder = inputs;
+    }
+    else
+    {
+        inputFolder = outputFolder;
+        
+        // Delete input files from previous generations if applicable
+        if (generation > 3)
         {
-            inputFolder = inputs;
-        }
-        else
-        {
-            inputFolder = outputFolder;
-        }
-
-        // Listing previous generation before mutation
-        files = listFilesInDirectory(inputFolder);
-
-        // Core logic
-        outputFolder = outputFolderName + "\\" + "generation_" + to_string(generation);
-        fs::create_directory(outputFolder);
-
-        // Mutating each file with every mutation
-        for (const string& file : files)
-        {
-            for (const string& mut : mylist)
-            {
-                cout << "Mutating file: " << file << " with mutation " << mut << endl;
-                mutating_inputs(file, mut, inputFolder, outputFolder, ext);
-            }
-        }
-
-        // Listing mutated file then running against target app
-        mutatedFiles = listFilesInDirectory(outputFolder);
-        for (const string& file : mutatedFiles)
-        {
-            cout << "Running target app with file: " << file << endl;
-            string input = outputFolder + "\\" + file;
-            runTargetProcess(targetApp, input);
+            string prevGenerationFolder = outputFolderName + "\\" + "generation_" + to_string(generation - 3);
+            fs::remove_all(prevGenerationFolder);
+            cout << "Deleted input files from generation " << generation - 3 << endl;
         }
     }
+
+    // Listing previous generation before mutation
+    files = listFilesInDirectory(inputFolder);
+
+    // Core logic
+    outputFolder = outputFolderName + "\\" + "generation_" + to_string(generation);
+    fs::create_directory(outputFolder);
+
+    // Mutating each file with every mutation
+    for (const string& file : files)
+    {
+        for (const string& mut : mylist)
+        {
+            cout << "Mutating file: " << file << " with mutation " << mut << endl;
+            mutating_inputs(file, mut, inputFolder, outputFolder, ext);
+        }
+    }
+
+    // Listing mutated file then running against target app
+    mutatedFiles = listFilesInDirectory(outputFolder);
+    for (const string& file : mutatedFiles)
+    {
+        cout << "Running target app with file: " << file << endl;
+        string input = outputFolder + "\\" + file;
+        runTargetProcess(targetApp, input);
+    }
+}
+
     return 0;
 }
