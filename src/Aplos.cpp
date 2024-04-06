@@ -78,7 +78,6 @@ BOOL mutating_inputs(const string& filename, const string& mut, const string& in
     TerminateProcess(pi.hProcess, 0);
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
-
 }
 
 void reporting(const string exceptionMessage, DWORD exceptionCode, string inputFile)
@@ -96,7 +95,6 @@ void reporting(const string exceptionMessage, DWORD exceptionCode, string inputF
     fs::path source = inputFile;
     fs::path dest = crashFolder + inputFile;
     fs::copy(source, dest);
-
 }
 
 DWORD ProcessDebugEvent(DEBUG_EVENT* debugEvent, string inputFile)
@@ -158,7 +156,7 @@ DWORD ProcessDebugEvent(DEBUG_EVENT* debugEvent, string inputFile)
         case EXCEPTION_STACK_OVERFLOW:
             reporting("Critical exception: Stack overflow (0x", exceptionCode, inputFile);
             break;
-       
+
         default:
             break;
         }
@@ -209,11 +207,9 @@ BOOL runTargetProcess(const string& targetApp, const string& inputFile)
     TerminateProcess(pi.hProcess, 0);
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
-
 }
 
-int _tmain(int argc, char *argv[])
-{
+int main(int argc, char* argv[]) {
     // Declaring mutation arguments list
     vector<string> mylist = {"ab", "bd", "bf", "bi", "br", "bp", "bei", "bed", "ber", "sr", "sd", "ld", "lds", "lr2",
     "li", "lr", "ls", "lp", "lis", "lrs", "td", "tr2", "ts1", "ts2", "tr", "uw", "ui", "num", "xp", "ft", "fn",
@@ -224,20 +220,29 @@ int _tmain(int argc, char *argv[])
     argv = aplos.ensure_utf8(argv);
 
     string targetApp, inputs, ext;
+    int maxGenerations = INT_MAX;  // Set default to maximum integer value
+    int maxRuntimeSeconds = INT_MAX;  // Set default to maximum integer value
     aplos.add_option("-t, --target", targetApp, "The target application you want to fuzz.")
         ->required()
         ->check(CLI::ExistingFile);
 
     aplos.add_option("-i, --input", inputs, "The input folder containing initial testcases.")
-        -> required()
-        -> check(CLI::ExistingDirectory);
+        ->required()
+        ->check(CLI::ExistingDirectory);
 
     aplos.add_option("-e, --extension", ext, "The extension used to generate testcases.")
         ->required();
 
     aplos.add_option("-D, --delay", TIMEOUT, "The timeout delay in ms before closing target app.");
+
+    aplos.add_option("--max-generations", maxGenerations, "The maximum number of generations to run (default: unlimited)")
+        ->capture_default_str();
+
+    aplos.add_option("--max-runtime", maxRuntimeSeconds, "The maximum runtime in seconds (default: unlimited)")
+        ->capture_default_str();
+
     CLI11_PARSE(aplos, argc, argv);
-    
+
     // Create timestamp for the initial output folder
     time_t now = time(0);
     struct tm formattedTime;
@@ -255,54 +260,52 @@ int _tmain(int argc, char *argv[])
     string outputFolder, inputFolder;
     originalFolder = inputs;
 
-// Main fuzzing logic loop
-for (int generation = 1;; ++generation)
-{
-    // Check for input folder logic
-    cout << "Mutating corpus to create testcases generation: " << generation << endl;
-    if (generation == 1)
-    {
-        inputFolder = inputs;
-    }
-    else
-    {
-        inputFolder = outputFolder;
+    time_t startTime;
+    time(&startTime);
+
+    // Main fuzzing logic loop with added persistent mode 
+    int currentGeneration = 1;
+    while (currentGeneration <= maxGenerations && difftime(time(0), startTime) <= maxRuntimeSeconds) {
+        // Check for input folder logic
+        cout << "Mutating corpus to create testcases generation: " << currentGeneration << endl;
+        if (currentGeneration == 1) {
+            inputFolder = inputs;
+        } else {
+            inputFolder = outputFolder;
         
-        // Delete input files from previous generations if applicable
-        if (generation > 3)
-        {
-            string prevGenerationFolder = outputFolderName + "\\" + "generation_" + to_string(generation - 3);
-            fs::remove_all(prevGenerationFolder);
-            cout << "Deleted input files from generation " << generation - 3 << endl;
+            // Delete input files from previous generations if applicable
+            if (currentGeneration > 3) {
+                string prevGenerationFolder = outputFolderName + "\\" + "generation_" + to_string(currentGeneration - 3);
+                fs::remove_all(prevGenerationFolder);
+                cout << "Deleted input files from generation " << currentGeneration - 3 << endl;
+            }
         }
-    }
 
-    // Listing previous generation before mutation
-    files = listFilesInDirectory(inputFolder);
+        // Listing previous generation before mutation
+        files = listFilesInDirectory(inputFolder);
 
-    // Core logic
-    outputFolder = outputFolderName + "\\" + "generation_" + to_string(generation);
-    fs::create_directory(outputFolder);
+        // Core logic
+        outputFolder = outputFolderName + "\\" + "generation_" + to_string(currentGeneration);
+        fs::create_directory(outputFolder);
 
-    // Mutating each file with every mutation
-    for (const string& file : files)
-    {
-        for (const string& mut : mylist)
-        {
-            cout << "Mutating file: " << file << " with mutation " << mut << endl;
-            mutating_inputs(file, mut, inputFolder, outputFolder, ext);
+        // Mutating each file with every mutation
+        for (const string& file : files) {
+            for (const string& mut : mylist) {
+                cout << "Mutating file: " << file << " with mutation " << mut << endl;
+                mutating_inputs(file, mut, inputFolder, outputFolder, ext);
+            }
         }
-    }
 
-    // Listing mutated file then running against target app
-    mutatedFiles = listFilesInDirectory(outputFolder);
-    for (const string& file : mutatedFiles)
-    {
-        cout << "Running target app with file: " << file << endl;
-        string input = outputFolder + "\\" + file;
-        runTargetProcess(targetApp, input);
+        // Listing mutated file then running against target app
+        mutatedFiles = listFilesInDirectory(outputFolder);
+        for (const string& file : mutatedFiles) {
+            cout << "Running target app with file: " << file << endl;
+            string input = outputFolder + "\\" + file;
+            runTargetProcess(targetApp, input);
+        }
+
+        ++currentGeneration;
     }
-}
 
     return 0;
 }
