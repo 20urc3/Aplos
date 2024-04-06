@@ -64,7 +64,6 @@ That being said, this project will still be improved and modified over time. Peo
 
 <!-- ROADMAP -->
 ## Roadmap
-- [ ] File management: When reaching > 3 gen, starting to delete unused input files.
 - [ ] Add instrumentation to record coverage.
 - [ ] Allow persistent mode.
 - [ ] Integrate AFL like mutation engine.
