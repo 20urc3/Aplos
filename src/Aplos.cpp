@@ -1,7 +1,7 @@
 #include <windows.h>
 #include <cstdio>
 #include <tchar.h>
-#include <atlstr.h>
+//#include <atlstr.h>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -80,6 +80,7 @@ BOOL mutateInputs(const string& filename, const string& mut, const string& input
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
 
+    return TRUE;
 }
 
 void reportCrash(const string& exceptionMessage, DWORD exceptionCode, const string& inputFile)
@@ -166,6 +167,7 @@ DWORD ProcessDebugEvent(DEBUG_EVENT* debugEvent, const string& inputFile)
         }
         return exceptionCode;
     }
+    return TRUE;
 }
 
 BOOL runTargetProcess(const string& targetApp, const string& inputFile) 
@@ -212,6 +214,7 @@ BOOL runTargetProcess(const string& targetApp, const string& inputFile)
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
 
+    return TRUE;
 }
 
 int _tmain(int argc, char *argv[])
