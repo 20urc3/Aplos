@@ -1,7 +1,6 @@
 #include <windows.h>
 #include <cstdio>
 #include <tchar.h>
-//#include <atlstr.h>
 #include <fstream>
 #include <iostream>
 #include <sstream>
