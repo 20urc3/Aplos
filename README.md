@@ -69,6 +69,11 @@ That being said, this project will still be improved and modified over time. Peo
 - [ ] Integrate AFL like mutation engine.
 See the [open issues](https://github.com/20urc3/Aplos/issues) for a full list of proposed features (and known issues).
 
+<!-- Trophy -->
+## Trophies
+If you find any bug/CVE with Aplos please report it via issues or commit change to the readme.
+We will display your achievements here!
+
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgment
 Short (non-exhaustive) list of amazing people and project that inspired me during this project.
