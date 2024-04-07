@@ -1,7 +1,7 @@
 #include <windows.h>
-#include <stdio.h>
+#include <cstdio>
 #include <tchar.h>
-#include <atlstr.h>
+//#include <atlstr.h>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -32,7 +32,7 @@ vector<string> listFilesInDirectory(const std::string& directoryPath) {
     return fileNames;
 }
 
-string removeExt(const string& filename) {
+string removeExtension(const string& filename) {
     size_t dotPos = filename.rfind('.');
     if (dotPos == string::npos) {
         return filename;
@@ -40,9 +40,10 @@ string removeExt(const string& filename) {
     return filename.substr(0, dotPos);
 }
 
-BOOL mutating_inputs(const string& filename, const string& mut, const string& inputFolder, const string& outputFolder, string ext)
+
+BOOL mutateInputs(const string& filename, const string& mut, const string& inputFolder, const string& outputFolder, string ext)
 { 
-    string nfilename = removeExt(filename);
+    string nfilename = removeExtension(filename);
     string outputFileName = outputFolder + "\\" + nfilename + "_id=" + mut + "." + ext;
     STARTUPINFOA si;
     PROCESS_INFORMATION pi;
@@ -55,19 +56,19 @@ BOOL mutating_inputs(const string& filename, const string& mut, const string& in
     si.cb = sizeof(si);
 
     if (!CreateProcessA(
-        NULL,   // Target app
-        cmd,        // Command line
-        NULL,           // Process handle not inheritable
-        NULL,           // Thread handle not inheritable
-        FALSE,          // Set handle inheritance to FALSE
-        0,              // No creation flag
-        NULL,           // Use parent's environment block
-        NULL,           // Use parent's starting directory 
-        &si,            // Pointer to STARTUPINFO structure
-        &pi)           // Pointer to PROCESS_INFORMATION structure
+        nullptr,           // Target app
+        cmd,                 // Command line
+        nullptr,           // Process handle not inheritable
+        nullptr,            // Thread handle not inheritable
+        FALSE,                // Set handle inheritance to FALSE
+        0,                   // No creation flag
+        nullptr,               // Use parent's environment block
+        nullptr,            // Use parent's starting directory
+        &si,                    // Pointer to STARTUPINFO structure
+        &pi)              // Pointer to PROCESS_INFORMATION structure
         )
     {
-        printf("CreateProcess failed GLE=(%d).\n", GetLastError());
+        printf("CreateProcess failed GLE=(%lu).\n", GetLastError());
         return 1;
     }
 
@@ -79,9 +80,10 @@ BOOL mutating_inputs(const string& filename, const string& mut, const string& in
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
 
+    return TRUE;
 }
 
-void reporting(const string exceptionMessage, DWORD exceptionCode, string inputFile)
+void reportCrash(const string& exceptionMessage, DWORD exceptionCode, const string& inputFile)
 {
     string crashFolder = originalFolder + "crashes";
     if (!fs::exists(crashFolder)) 
@@ -99,7 +101,7 @@ void reporting(const string exceptionMessage, DWORD exceptionCode, string inputF
 
 }
 
-DWORD ProcessDebugEvent(DEBUG_EVENT* debugEvent, string inputFile)
+DWORD ProcessDebugEvent(DEBUG_EVENT* debugEvent, const string& inputFile)
 {
     if (debugEvent->dwDebugEventCode == EXCEPTION_DEBUG_EVENT)
     {
@@ -112,51 +114,52 @@ DWORD ProcessDebugEvent(DEBUG_EVENT* debugEvent, string inputFile)
         case EXCEPTION_BREAKPOINT:
             break;
         case EXCEPTION_ACCESS_VIOLATION:
-            reporting("Critical exception: Access Violation (0x", exceptionCode, inputFile);
+            reportCrash("Critical exception: Access Violation (0x", exceptionCode, inputFile);
             break;
 
         case EXCEPTION_ARRAY_BOUNDS_EXCEEDED:
-            reporting("Critical exception: Array Bounds Exceeded (0x", exceptionCode, inputFile);
+            reportCrash("Critical exception: Array Bounds Exceeded (0x", exceptionCode, inputFile);
             break;
 
         case EXCEPTION_FLT_DENORMAL_OPERAND:
-            reporting("Critical exception: Invalid floating-point operation (denormal operand) (0x", exceptionCode, inputFile);
+            reportCrash("Critical exception: Invalid floating-point operation (denormal operand) (0x", exceptionCode,
+                        inputFile);
             break;
 
         case EXCEPTION_FLT_DIVIDE_BY_ZERO:
-            reporting("Critical exception: Floating-point division by zero (0x", exceptionCode, inputFile);
+            reportCrash("Critical exception: Floating-point division by zero (0x", exceptionCode, inputFile);
             break;
 
         case EXCEPTION_FLT_OVERFLOW:
-            reporting("Critical exception: Floating-point overflow (0x", exceptionCode, inputFile);
+            reportCrash("Critical exception: Floating-point overflow (0x", exceptionCode, inputFile);
             break;
 
         case EXCEPTION_FLT_STACK_CHECK:
-            reporting("Critical exception: Hardware floating-point stack overflow (0x", exceptionCode, inputFile);
+            reportCrash("Critical exception: Hardware floating-point stack overflow (0x", exceptionCode, inputFile);
             break;
 
         case EXCEPTION_FLT_UNDERFLOW:
-            reporting("Critical exception: Floating-point underflow (0x", exceptionCode, inputFile);
+            reportCrash("Critical exception: Floating-point underflow (0x", exceptionCode, inputFile);
             break;
 
         case EXCEPTION_ILLEGAL_INSTRUCTION:
-            reporting("Critical exception: Illegal instruction encountered (0x", exceptionCode, inputFile);
+            reportCrash("Critical exception: Illegal instruction encountered (0x", exceptionCode, inputFile);
             break;
 
         case EXCEPTION_IN_PAGE_ERROR:
-            reporting("Critical exception: Page fault (0x", exceptionCode, inputFile);
+            reportCrash("Critical exception: Page fault (0x", exceptionCode, inputFile);
             break;
 
         case EXCEPTION_INT_DIVIDE_BY_ZERO:
-            reporting("Critical exception: Integer division by zero (0x", exceptionCode, inputFile);
+            reportCrash("Critical exception: Integer division by zero (0x", exceptionCode, inputFile);
             break;
 
         case EXCEPTION_INT_OVERFLOW:
-            reporting("Critical exception: Integer overflow (0x", exceptionCode, inputFile);
+            reportCrash("Critical exception: Integer overflow (0x", exceptionCode, inputFile);
             break;
 
         case EXCEPTION_STACK_OVERFLOW:
-            reporting("Critical exception: Stack overflow (0x", exceptionCode, inputFile);
+            reportCrash("Critical exception: Stack overflow (0x", exceptionCode, inputFile);
             break;
        
         default:
@@ -164,6 +167,7 @@ DWORD ProcessDebugEvent(DEBUG_EVENT* debugEvent, string inputFile)
         }
         return exceptionCode;
     }
+    return TRUE;
 }
 
 BOOL runTargetProcess(const string& targetApp, const string& inputFile) 
@@ -171,30 +175,30 @@ BOOL runTargetProcess(const string& targetApp, const string& inputFile)
     STARTUPINFOA si;
     PROCESS_INFORMATION pi;
     DEBUG_EVENT debug_event;
-    string arg1 = targetApp.c_str();
+    const string& arg1 = targetApp;
     string arg2 = " ";
-    string arg3 = inputFile.c_str();
+    const string& arg3 = inputFile;
     string args = arg1 + arg2 + arg3;
-    LPSTR cmd = (LPSTR)args.c_str();
+    auto cmd = (LPSTR)args.c_str();
 
     ZeroMemory(&si, sizeof(si));
     ZeroMemory(&pi, sizeof(pi));
     si.cb = sizeof(si);
 
     if (!CreateProcessA(
-        NULL,   // NULL
+        nullptr,   // NULL
         cmd,        // Command line
-        NULL,           // Process handle not inheritable
-        NULL,           // Thread handle not inheritable
+        nullptr,           // Process handle not inheritable
+        nullptr,           // Thread handle not inheritable
         TRUE,          // Set handle inheritance to FALSE
         DEBUG_ONLY_THIS_PROCESS, // Debug only this process flag
-        NULL,           // Use parent's environment block
-        NULL,           // Use parent's starting directory 
+        nullptr,           // Use parent's environment block
+        nullptr,           // Use parent's starting directory
         &si,            // Pointer to STARTUPINFO structure
         &pi)           // Pointer to PROCESS_INFORMATION structure
         )
     {
-        printf("CreateProcess failed GLE=(%d).\n", GetLastError());
+        printf("CreateProcess failed GLE=(%lu).\n", GetLastError());
         return 1;
     }
 
@@ -210,17 +214,18 @@ BOOL runTargetProcess(const string& targetApp, const string& inputFile)
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
 
+    return TRUE;
 }
 
 int _tmain(int argc, char *argv[])
 {
     // Declaring mutation arguments list
-    vector<string> mylist = {"ab", "bd", "bf", "bi", "br", "bp", "bei", "bed", "ber", "sr", "sd", "ld", "lds", "lr2",
-    "li", "lr", "ls", "lp", "lis", "lrs", "td", "tr2", "ts1", "ts2", "tr", "uw", "ui", "num", "xp", "ft", "fn",
-    "fo"};
+    vector<string> mutationArguments = {"ab", "bd", "bf", "bi", "br", "bp", "bei", "bed", "ber", "sr", "sd", "ld", "lds", "lr2",
+                                        "li", "lr", "ls", "lp", "lis", "lrs", "td", "tr2", "ts1", "ts2", "tr", "uw", "ui", "num", "xp", "ft", "fn",
+                                        "fo"};
     
     // Command line interface logic
-    CLI::App aplos{"Applos is a simple fuzzer."};
+    CLI::App aplos{"Aplos is a simple fuzzer."};
     argv = aplos.ensure_utf8(argv);
 
     string targetApp, inputs, ext;
@@ -239,8 +244,8 @@ int _tmain(int argc, char *argv[])
     CLI11_PARSE(aplos, argc, argv);
     
     // Create timestamp for the initial output folder
-    time_t now = time(0);
-    struct tm formattedTime;
+    time_t now = time(nullptr);
+    struct tm formattedTime{};
     localtime_s(&formattedTime, &now);
     stringstream timestampStream;
     timestampStream << setw(2) << setfill('0') << formattedTime.tm_mday << "_"
@@ -287,10 +292,10 @@ for (int generation = 1;; ++generation)
     // Mutating each file with every mutation
     for (const string& file : files)
     {
-        for (const string& mut : mylist)
+        for (const string& mut : mutationArguments)
         {
             cout << "Mutating file: " << file << " with mutation " << mut << endl;
-            mutating_inputs(file, mut, inputFolder, outputFolder, ext);
+            mutateInputs(file, mut, inputFolder, outputFolder, ext);
         }
     }
 
