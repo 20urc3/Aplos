@@ -76,15 +76,8 @@ We will display your achievements here!
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgment
-Short (non-exhaustive) list of amazing people and project that inspired me during this project.
-- People:
-    * [@corelanc0d3r](https://twitter.com/corelanc0d3r)
-    * [@0vercl0k](https://twitter.com/0vercl0k)
-    * [@Richard Johnson](https://twitter.com/richinseattle)
-    * [@Ivan Fratic](https://twitter.com/ifsecure)
-    * [@Vanhaussuer-thc](https://twitter.com/hackerschoice)
+Short (non-exhaustive) list of amazing project that inspired me during this project.
 - Projects:
-    * [Fuzzing.io training](https://www.fuzzing.io/)
     * [Gamozolabs YT channel](https://www.youtube.com/@gamozolabs)
     * [GynvaelEN YT channel](https://www.youtube.com/@GynvaelEN)
     * [AFL++](https://github.com/AFLplusplus/AFLplusplus)
